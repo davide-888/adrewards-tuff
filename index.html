@@ -2,27 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ad Rewards – Home</title>
+    <title>Ad Rewards</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Monetag Preload -->
     <script src='//libtl.com/sdk.js' data-zone='10490467' data-sdk='show_10490467'></script>
 </head>
 <body>
 
-<div class="container">
-    <h1 class="title">🎮 AD REWARDS</h1>
+<div class="app">
 
-    <div class="coin-box">
-        <h2>💰 COINZ: <span id="coinz">0</span></h2>
+    <!-- TIMER -->
+    <div class="top-timer">
+        <span>Daily reset in: <span id="daily-timer">24:00:00</span></span>
     </div>
 
-    <button class="btn" onclick="watchAd()">WATCH AN AD</button>
+    <!-- HOME -->
+    <section id="screen-home" class="screen active">
+        <div class="home-header">
+            <img src="logo.png" alt="Ad Rewards Logo" class="app-logo">
+            <h1 class="app-title">AD REWARDS</h1>
+        </div>
 
-    <a href="payments.html" class="btn secondary">Go to Payments</a>
+        <div class="coin-panel">
+            <div class="coin-icon"></div>
+            <div class="coin-value">
+                <span id="coinz">0</span>
+            </div>
+        </div>
+
+        <button class="btn primary" onclick="watchAd()">WATCH AN AD</button>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section id="screen-leaderboard" class="screen">
+        <h2 class="section-title">LEADERBOARD</h2>
+
+        <div class="tabs">
+            <button class="tab-btn active" id="tab-daily" onclick="showLeaderboard('daily')">Daily</button>
+            <button class="tab-btn" id="tab-alltime" onclick="showLeaderboard('alltime')">All‑Time</button>
+        </div>
+
+        <div class="leaderboard-list" id="leaderboard-daily">
+            <!-- Esempio placeholder -->
+            <div class="lb-row header">
+                <span>#</span><span>Telegram</span><span>COINZ</span>
+            </div>
+            <div class="lb-row">
+                <span>1</span><span>@player1</span><span>120.5</span>
+            </div>
+            <div class="lb-row">
+                <span>2</span><span>@player2</span><span>98.3</span>
+            </div>
+        </div>
+
+        <div class="leaderboard-list hidden" id="leaderboard-alltime">
+            <div class="lb-row header">
+                <span>#</span><span>Telegram</span><span>COINZ</span>
+            </div>
+            <div class="lb-row">
+                <span>1</span><span>@legend</span><span>5023.7</span>
+            </div>
+            <div class="lb-row">
+                <span>2</span><span>@grinder</span><span>3890.2</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAYMENT -->
+    <section id="screen-payment" class="screen">
+        <h2 class="section-title">CHOOSE A PAYMENT METHOD</h2>
+
+        <button class="btn roblox-btn" onclick="openRobloxPayments()">
+            <span class="roblox-text">Roblox</span>
+        </button>
+
+        <div id="roblox-payments" class="payment-panel hidden">
+            <h3 class="payment-title">Roblox Payouts</h3>
+
+            <p class="payment-warning">
+                • Make sure your Roblox place is PUBLIC.<br>
+                • Create a Gamepass with the exact price shown.<br>
+                • If the Gamepass or username is wrong, the payment may fail and COINZ will not be refunded.<br>
+                • Payments are processed manually within 1–3 days.
+            </p>
+
+            <div class="card">
+                <h4>5 Robux</h4>
+                <p>Cost: 200 COINZ • Gamepass: 7 Robux</p>
+                <button class="btn small" onclick="withdraw(5,200,7)">Withdraw</button>
+            </div>
+
+            <div class="card">
+                <h4>10 Robux</h4>
+                <p>Cost: 400 COINZ • Gamepass: 14 Robux</p>
+                <button class="btn small" onclick="withdraw(10,400,14)">Withdraw</button>
+            </div>
+
+            <div class="card">
+                <h4>25 Robux</h4>
+                <p>Cost: 1000 COINZ • Gamepass: 35 Robux</p>
+                <button class="btn small" onclick="withdraw(25,1000,35)">Withdraw</button>
+            </div>
+
+            <div class="card">
+                <h4>100 Robux</h4>
+                <p>Cost: 4000 COINZ • Gamepass: 140 Robux</p>
+                <button class="btn small" onclick="withdraw(100,4000,140)">Withdraw</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NAV BAR -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="switchScreen('home')">HOME</button>
+        <button class="nav-btn" onclick="switchScreen('leaderboard')">LEADERBOARD</button>
+        <button class="nav-btn" onclick="switchScreen('payment')">PAYMENT</button>
+    </nav>
+
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
