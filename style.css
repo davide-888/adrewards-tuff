@@ -1,6 +1,7 @@
 body {
-    background: url('https://i.imgur.com/6I7Z9QF.jpeg');
+    background: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=80');
     background-size: cover;
+    background-position: center;
     font-family: 'Orbitron', sans-serif;
     color: white;
     text-align: center;
