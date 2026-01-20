@@ -1,10 +1,3 @@
-/* ============================================================
-   AD REWARDS – SCRIPT PRINCIPALE
-   ============================================================ */
-
-// ----------------------
-// DATA SAVE
-// ----------------------
 function loadCoinz() {
     return parseFloat(localStorage.getItem("coinz") || "0");
 }
@@ -21,14 +14,9 @@ function updateCoinzUI() {
 
 updateCoinzUI();
 
-
-// ----------------------
-// GUARDA AD (Monetag)
-// ----------------------
 function watchAd() {
     show_10490467().then(() => {
 
-        // Reward casuale tra 0.1 e 1
         let reward = (Math.random() * (1 - 0.1) + 0.1).toFixed(2);
 
         let current = loadCoinz();
@@ -37,60 +25,44 @@ function watchAd() {
         saveCoinz(updated);
         updateCoinzUI();
 
-        alert("Hai guadagnato " + reward + " COINZ!");
-
-        // Backend Monetag (se lo userai)
-        fetch("https://TUO-SERVER.COM/monetag-callback", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                event: "rewarded",
-                reward: reward,
-                total: updated
-            })
-        }).catch(() => {});
+        alert("You earned " + reward + " COINZ!");
     });
 }
 
-
-// ----------------------
-// RICHIESTA ROBUX
-// ----------------------
 function withdraw(robux, cost, gamepassPrice) {
 
     let coinz = loadCoinz();
 
     if (coinz < cost) {
-        alert("Non hai abbastanza COINZ!");
+        alert("You don't have enough COINZ!");
         return;
     }
 
-    let username = prompt("Inserisci il tuo username Roblox:");
+    let username = prompt("Enter your Roblox username:");
     if (!username) return;
 
     alert(
-        "ATTENZIONE!\n" +
-        "• Devi creare un Gamepass da " + gamepassPrice + " Robux.\n" +
-        "• La tua place deve essere PUBBLICA.\n" +
-        "• Se sbagli o non troviamo il gamepass NON facciamo rimborsi.\n" +
-        "• I pagamenti richiedono 1-3 giorni perché vengono elaborati manualmente."
+        "IMPORTANT:\n" +
+        "• You must create a Gamepass costing " + gamepassPrice + " Robux.\n" +
+        "• Your place must be PUBLIC.\n" +
+        "• If you make a mistake or we can't find the Gamepass, NO refunds.\n" +
+        "• Payments take 1–3 days because we process them manually."
     );
 
     let profileLink = "https://www.roblox.com/users/profile?username=" + username;
 
-    // INVIO ALLA WEBHOOK DISCORD
     fetch("https://discord.com/api/webhooks/1463096692974026918/YeSO3QIdQO4Nb85HtA06eu33J_CgB2KcZJTH6MR5jb_woNwdTf2_HhdjTnOlDZKCNJPV", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             content:
-                "**Nuova richiesta Robux**\n" +
+                "**New Robux Withdrawal Request**\n" +
                 "👤 Username: " + username + "\n" +
-                "🔗 Profilo: " + profileLink + "\n" +
-                "💸 Robux richiesti: " + robux + "\n" +
-                "⏳ Tempo stimato: 1-3 giorni"
+                "🔗 Profile: " + profileLink + "\n" +
+                "💸 Robux requested: " + robux + "\n" +
+                "⏳ Estimated time: 1–3 days"
         })
     });
 
-    alert("Richiesta inviata! Il pagamento verrà elaborato entro 1-3 giorni.");
+    alert("Your request has been sent! Payment will be processed within 1–3 days.");
 }
